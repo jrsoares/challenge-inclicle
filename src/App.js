@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './routes';
+import GlobalStyles from '@mui/material/GlobalStyles';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyles
+        styles={{
+          body: {
+            backgroundColor: "#E5E5E5", margin: 0, boxSizing: "border-box", padding: 0
+          },
+        }}
+      />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+
+    </>
   );
 }
 
