@@ -6,7 +6,7 @@ import { MoreHoriz } from '@mui/icons-material';
 
 export function EndomarketingList() {
   return (
-    <Box sx={{ marginBottom: "10px", backgroundColor: "#fff", padding: "8px 11px", display: 'flex' }}>
+    <Box sx={{ marginBottom: "10px", backgroundColor: "#fff", padding: "15px", display: 'flex' }}>
       <img src="./assets/images/1.png" alt="" />
       <Box sx={{ display: 'flex', flexDirection: 'column', width: "100%", justifyContent: 'space-between', marginLeft: "16px" }}>
         <Typography sx={{
