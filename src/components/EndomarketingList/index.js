@@ -6,8 +6,10 @@ import { MoreHoriz } from '@mui/icons-material';
 
 export function EndomarketingList() {
   return (
-    <Box sx={{ marginBottom: "10px", backgroundColor: "#fff", padding: "15px", display: 'flex' }}>
-      <img src="./assets/images/1.png" alt="" />
+    <Box sx={{ marginBottom: "10px", backgroundColor: "#fff", padding: "15px", display: 'flex', boxShadow: 3 }}>
+      <Box component="img" src="./assets/images/1.png" sx={{
+        maxWidth: '100%'
+      }} />
       <Box sx={{ display: 'flex', flexDirection: 'column', width: "100%", justifyContent: 'space-between', marginLeft: "16px" }}>
         <Typography sx={{
           fontWeight: '700', fontSize: '16px', color: "#707070", marginBottom: '5px',
@@ -43,10 +45,6 @@ export function EndomarketingList() {
       <Button size="small">
         <MoreHoriz sx={{ color: "#707070" }} />
       </Button>
-      <Box>
-
-      </Box>
-
     </Box >
   );
 }

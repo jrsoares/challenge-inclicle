@@ -9,8 +9,12 @@ function App() {
       <GlobalStyles
         styles={{
           body: {
-            backgroundColor: "#E5E5E5", margin: 0, boxSizing: "border-box", padding: 0
+            backgroundColor: "#E5E5E5", margin: 0, boxSizing: "border-box", padding: 0, outline: 0,
+            '-webkit-font-smoothing': 'antialiased'
           },
+          button: {
+            cursor: 'pointer'
+          }
         }}
       />
       <BrowserRouter>

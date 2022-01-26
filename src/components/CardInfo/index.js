@@ -5,12 +5,14 @@ import Typography from '@mui/material/Typography';
 
 export default function CardInfo() {
   return (
-    <Box sx={{ height: "309px", backgroundColor: "#FFF2DE", padding: "28px 20px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-      <Box>
+    <Box sx={{ height: { md: "309px", xs: 'auto' }, backgroundColor: "#FFF2DE", padding: "28px 20px", display: "flex", flexDirection: "column", justifyContent: "space-between", border: "1px solid #DCD1C0" }}>
+      <Box sx={{
+        marginBottom: { xs: '15px' }
+      }}>
         <Typography sx={{ fontSize: '16px', fontWeight: 'bold', marginBottom: "12px", color: "#707070", }} >
           Endormarketing
         </Typography>
-        <Typography sx={{ fontSize: '14px', fontFamily: 'Open Sans' }} color="#707070">
+        <Typography sx={{ fontSize: '14px', fontFamily: 'Open Sans', color: "#707070" }}>
           Endomarketing está relacionado às
           ações de treinamento ou qualificação
           dos colaboradores da empresa

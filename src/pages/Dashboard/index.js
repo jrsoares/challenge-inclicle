@@ -8,16 +8,17 @@ export default function Dashboard() {
   return (
     <>
       <Box sx={{
-        width: "1366px",
+        maxWidth: "1366px",
         margin: "0 auto",
       }}>
         <Header />
         <Container>
           <Box sx={{
             display: 'grid',
-            gridTemplateColumns: '894px 279px ',
+            gridTemplateColumns: { md: '1fr 279px', xs: '1fr' },
             gap: "30px",
-            marginTop: "35px"
+            marginTop: "35px",
+
           }}>
             <Box>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
