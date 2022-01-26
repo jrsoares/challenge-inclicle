@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { MoreHoriz, Public } from '@mui/icons-material';
 
 
-export function CardGestaoItem() {
+export function CardGestaoItem({ data }) {
   return (
     <Box sx={{
       marginBottom: "10px", padding: "5px", background: "rgba(52, 137, 177, 0.1)"
@@ -17,7 +17,7 @@ export function CardGestaoItem() {
         <Typography variant="h1" sx={{
           fontWeight: '400', fontSize: '13px', color: "#707070",
         }} >
-          Demonstrativo comercial
+          {data.title}
         </Typography>
         <Box>
           <Public sx={{ color: "#707070", fontSize: '13px', marginRight: "5px" }} />
@@ -29,10 +29,9 @@ export function CardGestaoItem() {
         display: "flex",
         gap: "5px"
       }} >
-        <img src="./assets/images/1.png" width="60px" height="60px" alt="" />
-        <img src="./assets/images/1.png" width="60px" height="60px" alt="" />
-        <img src="./assets/images/1.png" width="60px" height="60px" alt="" />
-        <img src="./assets/images/1.png" width="60px" height="60px" alt="" />
+        {data['resume_files'] && (data['resume_files'].map(item => (
+          <img src={`${item.file}`} width="60px" height="60px" alt="" />
+        )))}
       </Box>
 
     </Box >

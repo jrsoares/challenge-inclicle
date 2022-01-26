@@ -1,10 +1,21 @@
+import { useEffect, useState } from 'react';
 import { Typography, Box, FormControl, Select, MenuItem, Button, Container } from '@mui/material'
 import Header from '../../components/Header'
 import { EndomarketingList } from '../../components/EndomarketingList';
 import CardInfo from '../../components/CardInfo'
 import AddIcon from '@mui/icons-material/Add';
 import CardGestao from '../../components/CardGestao';
+import api from '../../service/data.json';
+
+
 export default function Dashboard() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setData(api.data)
+  }, [])
+
+
   return (
     <>
       <Box sx={{
@@ -61,7 +72,7 @@ export default function Dashboard() {
                   </FormControl>
                 </Box>
               </Box>
-              <EndomarketingList />
+              {data && data.map(item => (<EndomarketingList key={item.id} data={item} />))}
             </Box>
             <Box sx={{ display: 'grid', gap: "17px" }}>
               <CardInfo />
