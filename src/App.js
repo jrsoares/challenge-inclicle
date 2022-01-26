@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Router from './routes';
 import GlobalStyles from '@mui/material/GlobalStyles';
+import ConfirmDialog from './components/ConfirmDialog';
+
 
 function App() {
   return (
@@ -20,7 +22,7 @@ function App() {
       <BrowserRouter>
         <Router />
       </BrowserRouter>
-
+      <ConfirmDialog />
     </>
   );
 }

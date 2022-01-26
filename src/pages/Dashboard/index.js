@@ -6,6 +6,7 @@ import CardInfo from '../../components/CardInfo'
 import AddIcon from '@mui/icons-material/Add';
 import CardGestao from '../../components/CardGestao';
 import api from '../../service/data.json';
+import { confirmDialog } from '../../components/ConfirmDialog';
 
 
 export default function Dashboard() {
@@ -15,6 +16,10 @@ export default function Dashboard() {
     setData(api.data)
   }, [])
 
+  const handleSubmit = () => {
+    console.log('Okay')
+  }
+
 
   return (
     <>
@@ -23,6 +28,7 @@ export default function Dashboard() {
         margin: "0 auto",
       }}>
         <Header />
+        <Button onClick={() => confirmDialog('Certeza de excluir esse post ?', handleSubmit)}>Open dialog</Button>
         <Container>
           <Box sx={{
             display: 'grid',
