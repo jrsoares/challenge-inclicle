@@ -5,21 +5,52 @@ import { EndomarketingList } from '../../components/EndomarketingList';
 import CardInfo from '../../components/CardInfo'
 import AddIcon from '@mui/icons-material/Add';
 import CardGestao from '../../components/CardGestao';
-import api from '../../service/data.json';
-import { confirmDialog } from '../../components/ConfirmDialog';
-
+import axios from 'axios';
 
 export default function Dashboard() {
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    setData(api.data)
-  }, [])
+    async function fetchData() {
 
-  const handleSubmit = () => {
-    console.log('Okay')
+      const response = await axios.get('https://raw.githubusercontent.com/InCicle/frontend-test/main/data.json');
+      const endomarketingWithConfirmations = [];
+
+      response.data.data.forEach((item) => {
+        if (item.type === 'event') {
+          let confirmed = 0;
+          let invited = item.invited_people.length
+          item.invited_people.forEach((invite) => {
+            if (invite.confirmed_presence) {
+              confirmed++
+            }
+          })
+          endomarketingWithConfirmations.push({
+            ...item,
+            confirmed: confirmed,
+            invited: invited,
+            visible: true
+          })
+        } else {
+          endomarketingWithConfirmations.push({
+            ...item,
+            confirmed: 0,
+            invited: 0,
+            visible: true
+          })
+        }
+      })
+      setData(endomarketingWithConfirmations);
+    }
+    fetchData();
+  }, []);
+
+  async function handleRemove(id) {
+    // await api.delete(`/data/${id}`);
+    // const newList = data.filter(item => item.id !== id);
+    // setData(newList)
   }
-
 
   return (
     <>
@@ -28,7 +59,6 @@ export default function Dashboard() {
         margin: "0 auto",
       }}>
         <Header />
-        <Button onClick={() => confirmDialog('Certeza de excluir esse post ?', handleSubmit)}>Open dialog</Button>
         <Container>
           <Box sx={{
             display: 'grid',
@@ -78,7 +108,7 @@ export default function Dashboard() {
                   </FormControl>
                 </Box>
               </Box>
-              {data && data.map(item => (<EndomarketingList key={item.id} data={item} />))}
+              {data && data.map(item => (<EndomarketingList key={item.id} data={item} onRemove={handleRemove} />))}
             </Box>
             <Box sx={{ display: 'grid', gap: "17px" }}>
               <CardInfo />
@@ -86,8 +116,6 @@ export default function Dashboard() {
             </Box>
           </Box>
         </Container>
-
-
       </Box>
     </>
   )

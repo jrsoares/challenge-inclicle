@@ -1,10 +1,37 @@
-import * as React from 'react';
+import * as React from 'react'
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { MoreHoriz } from '@mui/icons-material';
+import { confirmDialog } from '../../components/ConfirmDialog';
+import { Link } from '@mui/material';
+import { Modal } from "@mui/material";
 
-export function EndomarketingList({ data }) {
+import Avatar from '@mui/material/Avatar';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import PersonIcon from '@mui/icons-material/Person';
+import AddIcon from '@mui/icons-material/Add';
+import Close from '@mui/icons-material/Close'
+import IconButton from '@mui/material/IconButton';
+import { blue } from '@mui/material/colors';
+
+export function EndomarketingList({ data, onRemove }) {
+
+  const [open, setOpen] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState([]);
+
+  const handleOpen = (value) => {
+    setSelectedValue(value)
+    setOpen(true)
+  };
+
+  const handleClose = () => setOpen(false);
 
   return (
     <Box sx={{ marginBottom: "10px", backgroundColor: "#fff", padding: "15px", display: 'flex', boxShadow: 3 }
@@ -13,6 +40,66 @@ export function EndomarketingList({ data }) {
         <Box component="img" src={`${data.file.url}`} sx={{
           maxWidth: '73px', height: '73px'
         }} />
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
+          }}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Pessoas Convidadas
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <List sx={{ pt: 0 }}>
+                {selectedValue.map((item) => (
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar alt={`${item.name}`} src={`${item.avatar}`} />
+                    </ListItemAvatar>
+                    <Box>
+                      <ListItemText primary="Nome" secondary={<React.Fragment>
+                        <Typography
+                          sx={{ display: 'inline' }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {item.name}
+                        </Typography>
+                      </React.Fragment>}>
+                      </ListItemText>
+                      <ListItemText primary="Username" secondary={<React.Fragment>
+                        <Typography
+                          sx={{ display: 'inline' }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {item.username}
+                        </Typography>
+                      </React.Fragment>}>
+                      </ListItemText>
+                      <ListItemText sx={{ color: "#3489B1" }}>
+                        {item.confirmed_presence && "Confirmou presença"}
+                      </ListItemText>
+                    </Box>
+                  </ListItem>
+                ))}
+              </List>
+            </Typography>
+          </Box>
+        </Modal>
         <Box sx={{ display: 'flex', flexDirection: 'column', width: "100%", justifyContent: 'space-between', marginLeft: "16px" }}>
           <Typography sx={{
             fontWeight: '700', fontSize: '16px', color: "#707070", marginBottom: '5px',
@@ -32,7 +119,7 @@ export function EndomarketingList({ data }) {
               {data.type}
             </Typography>
             <Typography sx={{ fontSize: '10px', fontFamily: "Open Sans", color: "#707070" }}>
-              {/* {data.type.info.date} */}
+              {data.info.place && `${data.info.place} |`} {data.info.date && `${data.info.date}`}  {data.type === 'event' && (<> <span> | </span><Link onClick={() => handleOpen(data.invited_people)}>{data.confirmed} CONFIRMAÇOES DE {data.invited}</Link></>)}
             </Typography>
           </Box>
           <Typography sx={{
@@ -45,11 +132,10 @@ export function EndomarketingList({ data }) {
             {data.description}
           </Typography>
         </Box>
-        <Button size="small">
+        <Button onClick={() => confirmDialog('Tem certeza que deseja excluir esse item ?', () => onRemove(`${data.id}`))}>
           <MoreHoriz sx={{ color: "#707070" }} />
         </Button>
       </>
-
-    </Box>
+    </Box >
   );
 }

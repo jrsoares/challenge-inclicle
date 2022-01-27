@@ -2,15 +2,28 @@ import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import { CardGestaoItem } from '../CardGestaoItem';
+import axios from 'axios';
 
-import api from '../../service/management.json';
 
 export default function CardGestao() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    setData(api.data[0].boards)
-  }, [])
+
+    async function fetchData() {
+
+      const boards = await axios.get('https://raw.githubusercontent.com/InCicle/frontend-test/main/management.json')
+      setData(boards.data.data[0].boards)
+    }
+    fetchData();
+  }, []);
+
+  async function handleRemove(id) {
+    // await api.delete(`/data/${id}`);
+    // const newList = data.filter(item => item.id !== id);
+    // setData(newList)
+  }
+
 
   return (
     <Box sx={{
@@ -21,8 +34,7 @@ export default function CardGestao() {
         <Typography sx={{ fontSize: '16px', fontWeight: '700', padding: "5px", marginBottom: "12px", color: "#707070", }}  >
           Quadros de Gestão à Vista
         </Typography>
-        {console.log(data)}
-        {data && data.map(item => (<CardGestaoItem key={item.id} data={item} />))}
+        {data && data.map((item) => (<CardGestaoItem key={item.title} data={item} onRemove={handleRemove} />))}
       </Box>
     </ Box >
   );
