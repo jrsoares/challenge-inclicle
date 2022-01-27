@@ -11,7 +11,7 @@ export function CardGestaoItem({ data, onRemove }) {
   return (
 
     <Box sx={{
-      marginBottom: "10px", padding: "5px", background: "rgba(52, 137, 177, 0.1)"
+      marginBottom: "10px", padding: "5px", background: "rgba(52, 137, 177, 0.1)",
     }}>
       <Box sx={{
         display: 'flex', alignItems: 'center',
@@ -25,7 +25,7 @@ export function CardGestaoItem({ data, onRemove }) {
         </Typography>
         <Box>
           <Public sx={{ color: "#707070", fontSize: '13px', marginRight: "5px" }} />
-          <Button onClick={() => confirmDialog('Tem certeza que deseja excluir esse item ?', () => onRemove(`${data.title}`))}>
+          <Button onClick={() => confirmDialog(`Deseja excluir ${data.title}`, () => onRemove(`${data.title}`))}>
             <MoreHoriz sx={{ color: "#707070", fontSize: '13px' }} />
           </Button>
         </Box>

@@ -125,7 +125,7 @@ export function EndomarketingList({ data, onRemove }) {
             {data.description}
           </Typography>
         </Box>
-        <Button onClick={() => confirmDialog('Tem certeza que deseja excluir esse item ?', () => onRemove(`${data.id}`))}>
+        <Button onClick={() => confirmDialog(`Deseja excluir ${data.title} ?`, () => onRemove(`${data.id}`))}>
           <MoreHoriz sx={{ color: "#707070" }} />
         </Button>
       </>

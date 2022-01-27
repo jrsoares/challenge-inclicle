@@ -46,10 +46,9 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
-  async function handleRemove(id) {
-    // await api.delete(`/data/${id}`);
-    // const newList = data.filter(item => item.id !== id);
-    // setData(newList)
+  function handleRemove(id) {
+    const newList = data.filter((item) => { return item.id != id });
+    setData(newList);
   }
 
   return (
@@ -65,7 +64,6 @@ export default function Dashboard() {
             gridTemplateColumns: { md: '1fr 279px', xs: '1fr' },
             gap: "30px",
             marginTop: "35px",
-
           }}>
             <Box>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>

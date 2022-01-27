@@ -18,16 +18,14 @@ export default function CardGestao() {
     fetchData();
   }, []);
 
-  async function handleRemove(id) {
-    // await api.delete(`/data/${id}`);
-    // const newList = data.filter(item => item.id !== id);
-    // setData(newList)
+  function handleRemove(id) {
+    const newList = data.filter((item) => { return item.title != id })
+    setData(newList);
   }
-
 
   return (
     <Box sx={{
-      backgroundColor: "#FDFDFD", padding: "10px", borderRadius: "5px", boxShadow: 3
+      backgroundColor: "#FDFDFD", padding: "10px", borderRadius: "5px", boxShadow: 3,
     }
     }>
       <Box>
