@@ -13,6 +13,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
+import CategoryLabel from '../CategoryLabel';
 
 export function EndomarketingList({ data, onRemove }) {
 
@@ -103,14 +104,9 @@ export function EndomarketingList({ data, onRemove }) {
             display: 'flex',
             alignItems: 'center',
           }}>
-            <Typography sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#3489B1', width: '100px', height: '20px', fontSize: '10px', fontWeight: '700', color: "#eee", marginRight: '10px', fontFamily: "Open Sans"
-            }} >
+            <CategoryLabel>
               {data.type}
-            </Typography>
+            </CategoryLabel>
             <Typography sx={{ fontSize: '10px', fontFamily: "Open Sans", color: "#707070" }}>
               {data.info.place && `${data.info.place} |`} {data.info.date && `${data.info.date}`}  {data.type === 'event' && (<> <span> | </span><Link onClick={() => handleOpen(data.invited_people)}>{data.confirmed} CONFIRMAÇOES DE {data.invited}</Link></>)}
             </Typography>

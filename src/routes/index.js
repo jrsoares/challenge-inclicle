@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 const Router = () => (
   <Routes>
-    <Route exact path="/" element={<Dashboard/>} />
+    <Route exact path="/" element={<Dashboard />} />
   </Routes>
 );
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Typography, Box, FormControl, Select, MenuItem, Button, Container } from '@mui/material'
+import { Typography, Box, FormControl, Select, MenuItem, Button, Container, InputLabel, Checkbox, OutlinedInput, ListItemText } from '@mui/material'
 import Header from '../../components/Header'
 import { EndomarketingList } from '../../components/EndomarketingList';
 import CardInfo from '../../components/CardInfo'
@@ -7,9 +7,24 @@ import AddIcon from '@mui/icons-material/Add';
 import CardGestao from '../../components/CardGestao';
 import axios from 'axios';
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+
 export default function Dashboard() {
 
   const [data, setData] = useState([]);
+  const [listSelect, setListSelect] = useState([]);
+  const [types, setTypes] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -42,6 +57,8 @@ export default function Dashboard() {
         }
       })
       setData(endomarketingWithConfirmations);
+      const newListSelect = endomarketingWithConfirmations.map(item => (item.type));
+      setListSelect([...new Set(newListSelect)]);
     }
     fetchData();
   }, []);
@@ -50,6 +67,17 @@ export default function Dashboard() {
     const newList = data.filter((item) => { return item.id != id });
     setData(newList);
   }
+
+  const handleChangeSelect = (event) => {
+    const { target: { value } } = event;
+    setTypes(
+      typeof value === 'string' ? value.split(',') : value,
+    );
+    const newList = data.filter((item) => { return item.type == value });
+    // setData(itemsFiltered);
+    console.log(newList)
+  };
+
 
   return (
     <>
@@ -75,21 +103,31 @@ export default function Dashboard() {
                 }}>
                   Endomarketing
                 </Typography>
-                <Box sx={{ display: "flex", marginBottom: "14px" }} >
-                  <FormControl>
+                <Box sx={{ m: 1 }} >
+                  <FormControl sx={{ marginRight: "8px" }} >
+                    <InputLabel sx={{
+                      marginTop: -1
+                    }}>TIPO</InputLabel>
                     <Select
-                      sx={{ width: "95px", height: "38px", backgroundColor: "#fff", marginRight: "10px" }}
-                      value={{}}
-                      onChange={{}}
-                      displayEmpty
-                      inputProps={{ 'aria-label': 'Without label' }}
+                      sx={{
+                        width: "95px",
+                        height: "38px"
+                      }}
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={types}
+                      onChange={handleChangeSelect}
+                      input={<OutlinedInput label="Tag" />}
+                      renderValue={(selected) => selected.join(', ')}
+                      MenuProps={MenuProps}
                     >
-                      <MenuItem value="">
-                        <em>TIPO</em>
-                      </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      {listSelect.map((name) => (
+                        <MenuItem key={name} value={name}>
+                          <Checkbox checked={types.indexOf(name) > -1} />
+                          <ListItemText primary={name} />
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                   <FormControl>
