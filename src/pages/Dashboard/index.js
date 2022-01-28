@@ -69,13 +69,9 @@ export default function Dashboard() {
   }
 
   const handleChangeSelect = (event) => {
-    const { target: { value } } = event;
-    setTypes(
-      typeof value === 'string' ? value.split(',') : value,
-    );
-    const newList = data.filter((item) => { return item.type == value });
-    // setData(itemsFiltered);
-    console.log(newList)
+    const { target: { value }, } = event;
+    setTypes(typeof value === 'string' ? value.split(',') : value);
+    //TODO
   };
 
 

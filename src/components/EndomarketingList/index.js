@@ -14,6 +14,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import CategoryLabel from '../CategoryLabel';
+import IconButton from '@mui/material/IconButton';
+import { Close } from "@mui/icons-material";
+
 
 export function EndomarketingList({ data, onRemove }) {
 
@@ -51,9 +54,16 @@ export function EndomarketingList({ data, onRemove }) {
             boxShadow: 24,
             p: 4,
           }}>
+            <Box position="absolute" top={10} right={15}>
+              <IconButton onClick={handleClose}>
+                <Close />
+              </IconButton>
+            </Box>
+
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Pessoas Convidadas
             </Typography>
+
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <List sx={{ pt: 0 }}>
                 {selectedValue.map((item) => (
